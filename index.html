@@ -141,6 +141,61 @@
     .link-title  { font-size: 0.88rem; font-weight: 600; color: var(--link); margin-top: 3px; }
     .link-desc   { font-size: 0.72rem; color: var(--sub); margin-top: 3px; line-height: 1.4; }
 
+    /* ── RSS CARD ───────────────────────────── */
+    .rss-url {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--inset);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin: 10px 0 14px;
+    }
+    .rss-text {
+      flex: 1;
+      font-size: 0.78rem;
+      color: var(--sub);
+      font-family: 'Inter', monospace;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copy-btn {
+      flex-shrink: 0;
+      background: rgba(0,194,209,0.1);
+      border: 1px solid rgba(0,194,209,0.3);
+      color: var(--accent);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .copy-btn:hover { background: rgba(0,194,209,0.18); }
+    .copy-btn.copied { color: var(--green); border-color: rgba(76,175,80,0.4); background: rgba(76,175,80,0.1); }
+    .rss-readers {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .reader-link {
+      display: inline-block;
+      background: var(--inset);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--link);
+      transition: border-color 0.12s;
+    }
+    .reader-link:hover { border-color: var(--link); }
+    .reader-hint { font-size: 0.72rem; color: var(--sub); margin-top: 10px; line-height: 1.5; }
+
     /* ── OPEN BOX TIPS ──────────────────────── */
     .grades {
       display: grid;
@@ -334,6 +389,21 @@
       </div>
     </div>
 
+    <!-- SLICKDEALS RSS -->
+    <div class="card">
+      <div class="section-label">Slickdeals RSS Feed</div>
+      <p style="font-size:0.82rem; color:var(--sub);">Drop this into any RSS reader and you'll get a notification the moment someone posts a C5 65" deal. No account needed on most readers.</p>
+      <div class="rss-url">
+        <span class="rss-text" id="rss-url-text">https://slickdeals.net/newsearch.php?src=SearchBarV2&amp;q=LG+C5+65&amp;searchin=first_word&amp;rating=2&amp;rss=1</span>
+        <button class="copy-btn" id="copy-btn" onclick="copyRSS()">Copy</button>
+      </div>
+      <div class="rss-readers">
+        <a class="reader-link" href="https://feedly.com/i/subscription/feed/https%3A%2F%2Fslickdeals.net%2Fnewsearch.php%3Fsrc%3DSearchBarV2%26q%3DLG%2BC5%2B65%26searchin%3Dfirst_word%26rating%3D2%26rss%3D1" target="_blank">Add to Feedly ↗</a>
+        <a class="reader-link" href="https://www.inoreader.com/?add_feed=https%3A%2F%2Fslickdeals.net%2Fnewsearch.php%3Fsrc%3DSearchBarV2%26q%3DLG%2BC5%2B65%26searchin%3Dfirst_word%26rating%3D2%26rss%3D1" target="_blank">Add to Inoreader ↗</a>
+      </div>
+      <p class="reader-hint">Feedly free tier works fine for this. If you want phone push notifications, Inoreader's free plan can do it. Either way, set the feed and forget it — you'll hear when something pops.</p>
+    </div>
+
     <!-- OPEN BOX TIPS -->
     <div class="card">
       <div class="section-label">Best Buy Open Box — What to Know</div>
@@ -424,6 +494,19 @@ Apr 20 — BB Glendale: Good condition $880. Drove over, bought it."
   </div>
 
   <script>
+    function copyRSS() {
+      const url = 'https://slickdeals.net/newsearch.php?src=SearchBarV2&q=LG+C5+65&searchin=first_word&rating=2&rss=1';
+      const btn = document.getElementById('copy-btn');
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
     const logEl = document.getElementById('deal-log');
     const statusEl = document.getElementById('save-status');
     let timer;
