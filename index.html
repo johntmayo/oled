@@ -3,198 +3,442 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>John's OLED BF Hit List</title>
+  <title>LG C5 65" Sniper</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#050505;--card:#1b1b1b;--fg:#f1f1f1;--sub:#9c9c9c;--accent:#00c2d1;--link:#ffd54f;--border:#2a2a2a}
-    *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--fg);margin:0;padding:18px}
-    h1{font-size:22px;margin:0 0 8px;color:var(--accent);font-weight:700}
-    p,li{margin:0}
-    .wrap{display:grid;gap:12px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .card{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border);box-shadow:0 0 12px rgba(0,0,0,0.4)}
-    .tv h3{font-size:16px;margin:0 0 6px}
-    .meta{font-size:12px;color:var(--sub);margin-bottom:8px}
-    ul{padding-left:16px}
-    ul li{font-size:13px;line-height:1.35}
-    a{color:var(--link);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .links a{display:inline-block;margin-right:12px;margin-top:6px}
-    footer{color:var(--sub);font-size:11px;margin-top:8px}
-    .tag{display:inline-block;background:#0f2b2d;color:#7cf0ff;border:1px solid #0e4449;border-radius:999px;padding:2px 8px;font-size:11px;margin-left:6px}
-    .notes{margin-top:10px}
-    textarea{width:100%;min-height:72px;background:#0f0f0f;color:var(--fg);border:1px solid var(--border);border-radius:8px;padding:8px;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    :root {
+      --bg: #050505;
+      --card: #111111;
+      --inset: #181818;
+      --fg: #f1f1f1;
+      --sub: #888;
+      --border: #242424;
+      --accent: #00c2d1;
+      --link: #ffd54f;
+      --green: #4caf50;
+      --yellow: #ffd54f;
+      --orange: #ff9800;
+      --red: #f44336;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      padding: 24px 20px 72px;
+    }
+
+    .wrap { max-width: 720px; margin: 0 auto; display: grid; gap: 14px; }
+
+    /* header */
+    header { padding-bottom: 4px; }
+    h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent); letter-spacing: -0.3px; }
+    .sub { font-size: 0.82rem; color: var(--sub); margin-top: 3px; }
+
+    /* section headings */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sub);
+      margin-bottom: 10px;
+    }
+
+    /* cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    /* ── TARGET ─────────────────────────────── */
+    .target-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .target-name { font-size: 1.05rem; font-weight: 700; }
+    .target-sub  { font-size: 0.78rem; color: var(--sub); margin-top: 2px; }
+    .msrp-label  { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--sub); }
+    .msrp-value  { font-size: 1rem; font-weight: 700; color: var(--sub); text-decoration: line-through; }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+    }
+    .spec {
+      background: var(--inset);
+      border-radius: 6px;
+      padding: 9px 11px;
+    }
+    .spec-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--sub); }
+    .spec-value { font-size: 0.87rem; font-weight: 600; margin-top: 2px; }
+
+    /* ── PRICE TIERS ────────────────────────── */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .tier {
+      border-radius: 8px;
+      padding: 13px 10px;
+      text-align: center;
+    }
+    .tier.steal { background: rgba(76,175,80,0.1);  border: 1px solid rgba(76,175,80,0.25); }
+    .tier.good  { background: rgba(255,213,79,0.07); border: 1px solid rgba(255,213,79,0.22); }
+    .tier.pass  { background: rgba(244,67,54,0.07);  border: 1px solid rgba(244,67,54,0.2); }
+    .tier-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+    .tier.steal .tier-label { color: var(--green); }
+    .tier.good  .tier-label { color: var(--yellow); }
+    .tier.pass  .tier-label { color: var(--red); }
+    .tier-price { font-size: 1.25rem; font-weight: 700; margin: 6px 0 3px; }
+    .tier.steal .tier-price { color: var(--green); }
+    .tier.good  .tier-price { color: var(--yellow); }
+    .tier.pass  .tier-price { color: var(--red); }
+    .tier-note  { font-size: 0.7rem; color: var(--sub); line-height: 1.35; }
+
+    /* ── HUNT LINKS ─────────────────────────── */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 8px;
+    }
+    .hunt-link {
+      display: block;
+      background: var(--inset);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-decoration: none;
+      transition: border-color 0.12s;
+    }
+    .hunt-link:hover { border-color: var(--accent); }
+    .hunt-link.primary { border-color: rgba(0,194,209,0.35); }
+    .badge {
+      display: inline-block;
+      background: rgba(0,194,209,0.12);
+      color: var(--accent);
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    .link-source { font-size: 0.68rem; color: var(--sub); text-transform: uppercase; letter-spacing: 0.05em; }
+    .link-title  { font-size: 0.88rem; font-weight: 600; color: var(--link); margin-top: 3px; }
+    .link-desc   { font-size: 0.72rem; color: var(--sub); margin-top: 3px; line-height: 1.4; }
+
+    /* ── OPEN BOX TIPS ──────────────────────── */
+    .grades {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .grade {
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 0.78rem;
+    }
+    .grade.excellent { background: rgba(76,175,80,0.09);  border: 1px solid rgba(76,175,80,0.22); }
+    .grade.good      { background: rgba(255,213,79,0.07); border: 1px solid rgba(255,213,79,0.2); }
+    .grade.fair      { background: rgba(255,152,0,0.07);  border: 1px solid rgba(255,152,0,0.2); }
+    .grade-name { font-weight: 700; margin-bottom: 4px; }
+    .grade.excellent .grade-name { color: var(--green); }
+    .grade.good      .grade-name { color: var(--yellow); }
+    .grade.fair      .grade-name { color: var(--orange); }
+    .grade-desc { color: var(--sub); line-height: 1.4; }
+
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+    .check-main { line-height: 1.3; }
+    .check-hint { font-size: 0.72rem; color: var(--sub); margin-top: 2px; }
+
+    /* ── DEAL LOG ───────────────────────────── */
+    textarea {
+      width: 100%;
+      background: var(--inset);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--fg);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      padding: 11px 13px;
+      resize: vertical;
+      min-height: 110px;
+      margin-top: 10px;
+      transition: border-color 0.12s;
+    }
+    textarea:focus { outline: none; border-color: var(--accent); }
+    .save-status {
+      font-size: 0.7rem;
+      color: transparent;
+      text-align: right;
+      margin-top: 5px;
+      transition: color 0.2s;
+    }
+    .save-status.visible { color: var(--green); }
+
+    /* ── FOOTER ─────────────────────────────── */
+    footer { text-align: center; font-size: 0.72rem; color: var(--sub); margin-top: 12px; }
+
+    @media (max-width: 480px) {
+      .tiers { grid-template-columns: 1fr; }
+      .grades { grid-template-columns: 1fr; }
+    }
   </style>
-  <style>.dragging{opacity:.7;outline:2px dashed #2dd4bf}</style>
 </head>
 <body>
   <div class="wrap">
-    <h1>🎯 OLED Black Friday Hit List</h1>
-    <p style="font-size:13px;color:var(--sub)">Goal: 65" OLED ≈ $1k for gaming + Plex.</p>
 
-    <div class="grid" id="cards">
-      <div class="card tv" data-id="s90d">
-        <h3>Samsung S90D (2024)<span class="tag">QD-OLED · 144 Hz</span></h3>
-        <div class="meta"><a href="https://www.rtings.com/tv/reviews/samsung/s90d-s90dd-oled-qd-oled" target="_blank">RTINGS</a> — <strong>8.5</strong></div>
-        <ul>
-          <li>4× HDMI 2.1 • VRR/ALLM</li>
-          <li>Bright, fast; HDR10+</li>
-          <li>Plex 4K: good (lossless audio may transcode)</li>
-        </ul>
-        <div class="notes"><textarea placeholder="Notes: store, condition, price, SKU, return policy, etc."></textarea></div>
-      </div>
+    <header>
+      <h1>LG C5 65" Sniper</h1>
+      <p class="sub">Best Buy open box first. Everything else second. Waiting for a steal.</p>
+    </header>
 
-      <div class="card tv" data-id="s90f">
-        <h3>Samsung S90F (2025)<span class="tag">QD-OLED · 144 Hz</span></h3>
-        <div class="meta"><a href="https://www.rtings.com/tv/reviews/samsung/s90f-oled" target="_blank">RTINGS</a> — <strong>8.6</strong></div>
-        <ul>
-          <li>Minor proc/UX upgrades over S90D</li>
-          <li>4× HDMI 2.1 • VRR/ALLM</li>
-          <li>Plex 4K: good</li>
-        </ul>
-        <div class="notes"><textarea placeholder="Notes..."></textarea></div>
-      </div>
-
-      <div class="card tv" data-id="c4">
-        <h3>LG C4 (2024)<span class="tag">WOLED evo · 120 Hz</span></h3>
-        <div class="meta"><a href="https://www.rtings.com/tv/reviews/lg/c4-oled" target="_blank">RTINGS</a> — <strong>8.3</strong></div>
-        <ul>
-          <li>4× HDMI 2.1 • G-Sync/FreeSync</li>
-          <li>Dolby Vision + low input lag</li>
-          <li>Plex 4K: excellent</li>
-        </ul>
-        <div class="notes"><textarea placeholder="Notes..."></textarea></div>
-      </div>
-
-      <div class="card tv" data-id="c5">
-        <h3>LG C5 (2025)<span class="tag">WOLED evo · 120 Hz</span></h3>
-        <div class="meta"><a href="https://www.rtings.com/tv/reviews/lg/c5-oled" target="_blank">RTINGS</a> — <strong>8.6</strong></div>
-        <ul>
-          <li>Refined processor/brightness vs C4</li>
-          <li>4× HDMI 2.1 • DV + VRR</li>
-          <li>Plex 4K: excellent</li>
-        </ul>
-        <div class="notes"><textarea placeholder="Notes..."></textarea></div>
-      </div>
-
-      <div class="card tv" data-id="g4">
-        <h3>LG G4 (2024)<span class="tag">MLA WOLED · 144 Hz</span></h3>
-        <div class="meta"><a href="https://www.rtings.com/tv/reviews/lg/g4-oled" target="_blank">RTINGS</a> — <strong>8.6</strong></div>
-        <ul>
-          <li>Peak-bright LG; gallery mount</li>
-          <li>DV + full gaming suite</li>
-          <li>Plex 4K: excellent</li>
-        </ul>
-        <div class="notes"><textarea placeholder="Notes..."></textarea></div>
-      </div>
-
-      <div class="card tv" data-id="c3">
-        <h3>LG C3 (2023)<span class="tag">WOLED evo · 120 Hz</span></h3>
-        <div class="meta"><a href="https://www.rtings.com/tv/reviews/lg/c3-oled" target="_blank">RTINGS</a> — <strong>9.0</strong></div>
-        <ul>
-          <li>Great value if found ≤ ~$1k</li>
-          <li>4× HDMI 2.1 • DV + VRR</li>
-          <li>Plex 4K: excellent</li>
-        </ul>
-        <div class="notes"><textarea placeholder="Notes..."></textarea></div>
-      </div>
-    </div>
-
-    <div class="card links">
-      <h3 style="font-size:15px;margin:0 0 6px">Deal Hunt</h3>
-      <a href="https://www.bestbuy.com/site/searchpage.jsp?browsedCategory=pcmcat301000050010&id=pcat17071&qp=brand_facet%3DBrand%7ELG%5Ebrand_facet%3DBrand%7ESamsung%5Eparent_tvscreensizeplus_facet%3DTV+Screen+Size%7E65%22+-+74%22%5Esoldout_facet%3DAvailability%7EExclude+Out+of+Stock+Items&st=pcmcat301000050010_categoryid%24abcat0101001" target="_blank">Best Buy New</a>
-      <a href="https://www.bestbuy.com/site/searchpage.jsp?browsedCategory=pcmcat1751036007848&id=pcat17071&qp=category_facet%3DAll+Flat-Screen+TVs%7Eabcat0101001%5Ebrand_facet%3DBrand%7ELG%5Ebrand_facet%3DBrand%7ESamsung%5Eparent_tvscreensizeplus_facet%3DTV+Screen+Size%7E65%22+-+74%22%5Everticalresolution_facet%3DResolution%7E4K+%282160p%29%5Etelevisiontype_facet%3DTelevision+Type%7EOLED&st=pcmcat1751036007848_categoryid%24abcat0100000" target="_blank">Best Buy Open-Box</a>
-      <a href="https://slickdeals.net/deals/oled/" target="_blank">Slickdeals OLED</a>
-    </div>
-
+    <!-- TARGET -->
     <div class="card">
-      <h3 style="font-size:15px;margin:0 0 6px">Global Notes</h3>
-      <textarea id="global-notes" placeholder="Overall targets, price floors, pickup logistics, etc."></textarea>
+      <div class="section-label">The Target</div>
+      <div class="target-header">
+        <div>
+          <div class="target-name">LG C5 65" OLED</div>
+          <div class="target-sub">OLED65C5PUA &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; WOLED evo &nbsp;·&nbsp; <a href="https://www.rtings.com/tv/reviews/lg/c5-oled" target="_blank" style="color:var(--link);">RTINGS ↗</a></div>
+        </div>
+        <div>
+          <div class="msrp-label">MSRP</div>
+          <div class="msrp-value">$1,799</div>
+        </div>
+      </div>
+      <div class="specs-grid">
+        <div class="spec">
+          <div class="spec-label">Panel</div>
+          <div class="spec-value">WOLED evo</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Refresh</div>
+          <div class="spec-value">120 Hz native</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">HDMI</div>
+          <div class="spec-value">4× 2.1 (48 Gbps)</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">VRR</div>
+          <div class="spec-value">G-Sync + FreeSync</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">HDR</div>
+          <div class="spec-value">Dolby Vision + HDR10</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Plex 4K</div>
+          <div class="spec-value">Excellent</div>
+        </div>
+      </div>
     </div>
 
-    <footer>Last updated Oct 2025 • Refresh BF week.</footer>
+    <!-- PRICE TARGETS -->
+    <div class="card">
+      <div class="section-label">Price Targets &mdash; Open Box</div>
+      <div class="tiers">
+        <div class="tier steal">
+          <div class="tier-label">Steal</div>
+          <div class="tier-price">&lt; $900</div>
+          <div class="tier-note">Pull the trigger. Don't think about it.</div>
+        </div>
+        <div class="tier good">
+          <div class="tier-label">Good Deal</div>
+          <div class="tier-price">$900 – $1,100</div>
+          <div class="tier-note">Worth it. Verify condition before buying.</div>
+        </div>
+        <div class="tier pass">
+          <div class="tier-label">Pass</div>
+          <div class="tier-price">&gt; $1,200</div>
+          <div class="tier-note">Keep waiting. Better will come.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HUNT LINKS -->
+    <div class="card">
+      <div class="section-label">Hunt Links</div>
+      <div class="links-grid">
+
+        <a class="hunt-link primary" href="https://www.bestbuy.com/site/searchpage.jsp?st=OLED65C5PUA&condition=Open-Box" target="_blank">
+          <div class="badge">Primary</div>
+          <div class="link-source">Best Buy</div>
+          <div class="link-title">Open-Box C5 65"</div>
+          <div class="link-desc">Search by model number. Filter by your zip for local pickup.</div>
+        </a>
+
+        <a class="hunt-link" href="https://www.bestbuy.com/site/lg-c5-series-65-class-oled-evo-4k-uhd-smart-webos-tv/6609276.p" target="_blank">
+          <div class="link-source">Best Buy</div>
+          <div class="link-title">C5 65" Product Page</div>
+          <div class="link-desc">Watch for sale events, My Best Buy member promos.</div>
+        </a>
+
+        <a class="hunt-link" href="https://slickdeals.net/newsearch.php?q=LG+C5+65&searchin=first_word&rating=2" target="_blank">
+          <div class="link-source">Slickdeals</div>
+          <div class="link-title">LG C5 65" Deals</div>
+          <div class="link-desc">Set a deal alert so you get emailed when one posts.</div>
+        </a>
+
+        <a class="hunt-link" href="https://www.reddit.com/r/OLED_Gaming/search/?q=C5+65+deal&sort=new" target="_blank">
+          <div class="link-source">Reddit · r/OLED_Gaming</div>
+          <div class="link-title">C5 Deal Posts</div>
+          <div class="link-desc">Community-spotted deals. Sort by new.</div>
+        </a>
+
+        <a class="hunt-link" href="https://www.costco.com/catalogsearch/results?keyword=LG+OLED+65" target="_blank">
+          <div class="link-source">Costco</div>
+          <div class="link-title">LG OLED 65"</div>
+          <div class="link-desc">Occasionally carries C-series with solid bundle pricing.</div>
+        </a>
+
+        <a class="hunt-link" href="https://www.amazon.com/s?k=LG+C5+65+OLED&rh=p_n_condition-type%3A2224371011" target="_blank">
+          <div class="link-source">Amazon</div>
+          <div class="link-title">Used / Warehouse Deals</div>
+          <div class="link-desc">Amazon Warehouse. Hit-or-miss but worth checking.</div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- OPEN BOX TIPS -->
+    <div class="card">
+      <div class="section-label">Best Buy Open Box — What to Know</div>
+
+      <div class="grades">
+        <div class="grade excellent">
+          <div class="grade-name">Excellent</div>
+          <div class="grade-desc">No visible damage. Fully tested. The one to buy.</div>
+        </div>
+        <div class="grade good">
+          <div class="grade-name">Good</div>
+          <div class="grade-desc">Minor cosmetic damage. Tested. Fine if wall-mounted.</div>
+        </div>
+        <div class="grade fair">
+          <div class="grade-name">Fair / Satisfactory</div>
+          <div class="grade-desc">Noticeable damage. Skip unless you can inspect it in store first.</div>
+        </div>
+      </div>
+
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="c1">
+          <label for="c1">
+            <div class="check-main">Check nearby stores by zip — open box stock is local and changes daily</div>
+            <div class="check-hint">bestbuy.com lets you filter open box by store. Call ahead if you're driving far.</div>
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="c2">
+          <label for="c2">
+            <div class="check-main">Ask them to power it on before you buy</div>
+            <div class="check-hint">Look for dead pixels, burn-in, uniformity issues. Bring a test pattern on your phone.</div>
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="c3">
+          <label for="c3">
+            <div class="check-main">Confirm 15-day return window still applies</div>
+            <div class="check-hint">Open box keeps the standard Best Buy return policy. Verify at the counter.</div>
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="c4">
+          <label for="c4">
+            <div class="check-main">All accessories present: Magic Remote (MR25), power cable</div>
+            <div class="check-hint">Missing remote = negotiate lower, or just get one on Amazon for ~$30.</div>
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="c5">
+          <label for="c5">
+            <div class="check-main">Ask why it was returned</div>
+            <div class="check-hint">Staff sometimes know. Buyer's remorse is ideal. Panel damage is not.</div>
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="c6">
+          <label for="c6">
+            <div class="check-main">You can still add Geek Squad protection on open box</div>
+            <div class="check-hint">Optional, but worth considering on a $1k+ TV.</div>
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="c7">
+          <label for="c7">
+            <div class="check-main">My Best Buy members sometimes get early/exclusive open box access</div>
+            <div class="check-hint">Free to join. Also unlocks price match benefits.</div>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DEAL LOG -->
+    <div class="card">
+      <div class="section-label">Deal Log</div>
+      <p style="font-size:0.82rem; color:var(--sub);">Track prices spotted, stores checked, condition grades, SKUs.</p>
+      <textarea
+        id="deal-log"
+        placeholder="Apr 17 — BB Burbank: C5 65 Excellent $1,149. Passed — too high.
+Apr 18 — Slickdeals alert: Amazon Warehouse $1,020. Checked — sold out.
+Apr 20 — BB Glendale: Good condition $880. Drove over, bought it."
+      ></textarea>
+      <div class="save-status" id="save-status">Saved</div>
+    </div>
+
+    <footer>LG C5 65" · OLED65C5PUA · Updated Apr 2026</footer>
+
   </div>
 
   <script>
-    (function(){
-      const KEY_PREFIX = 'bf-tv-notes-';
-      const ORDER_KEY = KEY_PREFIX + 'order';
-      const $container = document.getElementById('cards');
-      const $cards = $container.querySelectorAll('.tv');
+    const logEl = document.getElementById('deal-log');
+    const statusEl = document.getElementById('save-status');
+    let timer;
 
-      // Apply draggable to cards
-      $cards.forEach(card => card.setAttribute('draggable','true'));
+    const saved = localStorage.getItem('c5-deal-log');
+    if (saved) logEl.value = saved;
 
-      // Restore saved order
-      const savedOrder = localStorage.getItem(ORDER_KEY);
-      if (savedOrder) {
-        const ids = savedOrder.split(',');
-        ids.forEach(id => {
-          const el = $container.querySelector(`.tv[data-id="${id}"]`);
-          if (el) $container.appendChild(el);
-        });
-      }
-
-      // Per-card notes load/save
-      $container.querySelectorAll('.tv').forEach(card => {
-        const id = card.getAttribute('data-id');
-        const ta = card.querySelector('textarea');
-        const saved = localStorage.getItem(KEY_PREFIX + id);
-        if (saved) ta.value = saved;
-        ta.addEventListener('input', () => {
-          localStorage.setItem(KEY_PREFIX + id, ta.value);
-        });
-      });
-
-      // Global notes
-      const gKey = KEY_PREFIX + 'global';
-      const gTa = document.getElementById('global-notes');
-      const gSaved = localStorage.getItem(gKey);
-      if (gSaved) gTa.value = gSaved;
-      gTa.addEventListener('input', () => localStorage.setItem(gKey, gTa.value));
-
-      // --- Drag & Drop Reordering (saves to localStorage) ---
-      let dragging = null;
-
-      function saveOrder(){
-        const order = Array.from($container.querySelectorAll('.tv')).map(el => el.dataset.id).join(',');
-        localStorage.setItem(ORDER_KEY, order);
-      }
-
-      $container.addEventListener('dragstart', (e) => {
-        const card = e.target.closest('.tv');
-        if (!card) return;
-        dragging = card;
-        card.classList.add('dragging');
-        e.dataTransfer.effectAllowed = 'move';
-        // Needed for Firefox
-        e.dataTransfer.setData('text/plain', card.dataset.id);
-      });
-
-      $container.addEventListener('dragend', () => {
-        if (dragging) dragging.classList.remove('dragging');
-        dragging = null;
-        saveOrder();
-      });
-
-      $container.addEventListener('dragover', (e) => {
-        if (!dragging) return;
-        e.preventDefault();
-        const over = e.target.closest('.tv');
-        if (!over || over === dragging) return;
-        const rect = over.getBoundingClientRect();
-        const before = (e.clientY - rect.top) < rect.height / 2;
-        $container.insertBefore(dragging, before ? over : over.nextSibling);
-      });
-
-      $container.addEventListener('drop', (e) => {
-        e.preventDefault();
-        saveOrder();
-      });
-    })();
+    logEl.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        localStorage.setItem('c5-deal-log', logEl.value);
+        statusEl.classList.add('visible');
+        setTimeout(() => statusEl.classList.remove('visible'), 1400);
+      }, 500);
+    });
   </script>
 </body>
 </html>
